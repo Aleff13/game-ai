@@ -9,7 +9,7 @@ from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.pointer_input import PointerInput
 
-apk_path = str(Path.cwd() / "app/MVCTodo.app")
+# apk_path = str(Path.cwd() / "app/MVCTodo.app")
 
 capabilities = {
     'deviceName': 'iPhone 15 Pro Max',
