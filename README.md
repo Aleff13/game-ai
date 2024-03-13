@@ -1,19 +1,21 @@
 # Dependencies
 
-To run this project you will need:
+To run this project, you will need the following dependencies installed:
 
-[python](https://python.org.br/instalacao-mac/)\
-[nodeJs](https://nodejs.org/en)\
-[appium](http://appium.io/docs/en/latest/)\
-[react-native](https://reactnative.dev)\
-[selenium](https://selenium-python.readthedocs.io/installation.html)
+- [Python](https://python.org.br/instalacao-mac/)
+- [Node.js](https://nodejs.org/en)
+- [Appium](http://appium.io/docs/en/latest/)
+- [React Native](https://reactnative.dev)
+- [Selenium](https://selenium-python.readthedocs.io/installation.html)
 
-ios-simulator
-xcode
+Additionally, ensure you have the following installed for iOS simulation:
 
-# The game
+- iOS Simulator
+- Xcode
 
-To setup the game you will need to access basic/ and install some modules:
+# The Game
+
+To set up the game, you will need to access the `basic/` directory and install some modules:
 
 1. `cd basic/`
 2. `npm install`
@@ -31,21 +33,15 @@ Start your ios simulator
 
 # The model
 
-The model-generator is inside the model/, need to train, compile, fit and save the model.
-
-This steps are encapsulated inside some packages and called in the generate-model command
-
-So, try to run:
+The model generator is located inside the model/ directory. You need to train, compile, fit, and save the model. These steps are encapsulated within packages and can be called using the generate-model command. Follow these steps:
 
 `/generate-model.sh`
 
-And choose the name to your model
+Choose a name for your model.
 
 # The automation
 
-To run the automation you will use the previous builded model and the game needs to be running
-
-You will need to create your capabilities file to configure driver options
+To run the automation, you will use the previously built model, and the game needs to be running. Follow these steps:
 
 `touch automation/capabilities.py`
 
