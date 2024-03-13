@@ -24,7 +24,7 @@ def moveTo(actions, start, final):
     actions.w3c_actions.pointer_action.release()
     actions.w3c_actions.perform()
 
-driver = webdriver.Remote('http://localhost:4723', capabilities,
+driver = webdriver.Remote('http://localhost:4723/wd/hub', capabilities,
     options=AppiumOptions().load_capabilities(capabilities))
 
 # Find the element you want to perform a long press on
