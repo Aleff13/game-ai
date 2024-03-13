@@ -4,10 +4,8 @@ from appium.webdriver.common.appiumby import AppiumBy
 from appium.options.common import AppiumOptions
 
 from appium.webdriver.common.appiumby import AppiumBy
-from selenium.webdriver import ActionChains
-from selenium.webdriver.common.actions import interaction
-from selenium.webdriver.common.actions.action_builder import ActionBuilder
-from selenium.webdriver.common.actions.pointer_input import PointerInput
+from appium.webdriver.common.touch_action import TouchAction
+
 
 # apk_path = str(Path.cwd() / "app/MVCTodo.app")
 
@@ -23,15 +21,11 @@ capabilities = {
 driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', 
     options=AppiumOptions().load_capabilities(capabilities))
 
-# driver.shake()
-
 item1 = driver.find_element(AppiumBy.ACCESSIBILITY_ID, 'item-1')
 item2 = driver.find_element(AppiumBy.ACCESSIBILITY_ID, 'item-2')
 
-print(item1)
-print(item2.location)
+driver.execute_script('mobile: longPress', {'element': item1.id})
 
-item1.click()
 # actions = ActionChains(driver)
 # # override as 'touch' pointer action
 # actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))

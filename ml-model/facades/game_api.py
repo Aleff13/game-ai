@@ -4,7 +4,7 @@ from keras.models import load_model
 
 class GameApi:
 
-    def loadModel(modelPath: str = 'beat_game.keras'):
+    def loadModel(modelPath: str = 'ai.keras'):
         return load_model(modelPath)
 
     def getCurrentOrder() -> str:
@@ -17,6 +17,7 @@ class GameApi:
         return np.array([values])
 
     def normalizeOutput(output):
+        print(output)
         return np.round(output).astype(int)[0]
 
     def displayResult(normalizedOutput):
