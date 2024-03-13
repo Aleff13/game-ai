@@ -1,34 +1,64 @@
-from pathlib import Path
-from appium import webdriver
-from appium.webdriver.common.appiumby import AppiumBy
-from appium.options.common import AppiumOptions
+from model import Model
+from pages import homePage
+from factories import driver
 
-from appium.webdriver.common.appiumby import AppiumBy
-from appium.webdriver.common.touch_action import TouchAction
+model = Model()
+model.loadModel("ai.keras")
 
+dr = driver.Driver()
+home = homePage.Home(dr.driver)
 
-# apk_path = str(Path.cwd() / "app/MVCTodo.app")
+def transformEntries(entrie, elements):
+    if entrie == 1:
+        return elements[1]
+    elif entrie == 2:
+        return elements[2]
+    elif entrie == 3:
+        return elements[3]
+    else:
+        return
+    
+def getElements():
+    first = home.getElementByAccessilityId("item-1")
+    second = home.getElementByAccessilityId("item-2")
+    third = home.getElementByAccessilityId("item-3")
 
-capabilities = {
-    'deviceName': 'iPhone 15 Pro Max',
-    'platformName': 'iOS',
-    'automationName': 'xcuitest',
-    'platformVersion': '17.2',
-    'udid': 'E88AD5F7-2E83-4304-B6DD-C6AD1956106F',
-    # 'app': apk_path
-}
+    elementsMap = {
+        1: first,
+        2: second,
+        3: third
+    }
 
-driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', 
-    options=AppiumOptions().load_capabilities(capabilities))
+    return first, second, third, elementsMap
 
-item1 = driver.find_element(AppiumBy.ACCESSIBILITY_ID, 'item-1')
-item2 = driver.find_element(AppiumBy.ACCESSIBILITY_ID, 'item-2').
+def getLocations(first, second, third):
+    locations = {
+        1: first.location["y"],
+        2: second.location["y"],
+        3: third.location["y"]
+    }
 
-driver.execute_script('mobile: longPress', {'element': item1.id})
+    return locations
+    
 
-# actions = ActionChains(driver)
-# # override as 'touch' pointer action
-# actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
-# actions.w3c_actions.pointer_action.double_click(item1)
-# actions.w3c_actions.pointer_action.release()
-# actions.perform()
+while True:
+    first, second, third, elements = getElements()
+
+    locations = getLocations(first, second, third)
+
+    transformedLocationList = dict(sorted(locations.items(), key=lambda item: item[1]))
+
+    if list(transformedLocationList.keys()) == sorted(list(transformedLocationList.keys())):
+        break
+
+    locationKeys = list(transformedLocationList.keys())
+
+    predictResult = model.predict([locationKeys], True)
+
+    elementThatNeedToMove = transformEntries(predictResult[0], elements)
+
+    keyPlace = locationKeys[locationKeys.index(predictResult[1])-1]
+
+    targetPlace = elements[keyPlace]
+
+    home.moveTo(elementThatNeedToMove, targetPlace)
