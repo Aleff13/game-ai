@@ -8,6 +8,10 @@ first = home.getElementByAccessilityId("item-1")
 second = home.getElementByAccessilityId("item-2")
 third = home.getElementByAccessilityId("item-3")
 
-home.moveTo(second, third)
+print(first.location["y"])
+print(second.location["y"])
+print(third.location["y"])
+
+home.moveTo(first, second)
 
 dr.Quit()

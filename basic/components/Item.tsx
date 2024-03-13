@@ -22,7 +22,9 @@ export const Item = ({item, drag}: RenderItemProps) => {
   const {isActive} = useOnCellActiveAnimation();
 
   return (
-    <View accessibilityLabel={`item-${item.value}`}>
+    <View
+      accessibilityLabel={`item-${item.value}`}
+      onClick={() => console.log('ola')}>
       <ScaleDecorator>
         <OpacityDecorator activeOpacity={0.5}>
           <ShadowDecorator>

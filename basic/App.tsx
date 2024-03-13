@@ -28,6 +28,7 @@ function App(): React.JSX.Element {
       </View>
       <GestureHandlerRootView style={styles.items}>
         <DraggableFlatList
+          accessibilityLabel={'items'}
           ref={ref}
           data={items}
           keyExtractor={item => item.key}

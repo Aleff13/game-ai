@@ -22,7 +22,7 @@ driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub',
     options=AppiumOptions().load_capabilities(capabilities))
 
 item1 = driver.find_element(AppiumBy.ACCESSIBILITY_ID, 'item-1')
-item2 = driver.find_element(AppiumBy.ACCESSIBILITY_ID, 'item-2')
+item2 = driver.find_element(AppiumBy.ACCESSIBILITY_ID, 'item-2').
 
 driver.execute_script('mobile: longPress', {'element': item1.id})
 
