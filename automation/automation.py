@@ -55,10 +55,10 @@ while True:
 
     predictResult = model.predict([locationKeys], True)
 
-    elementThatNeedToMove = transformEntries(predictResult[0], elements)
+    elementToMove = transformEntries(predictResult[0], elements)
 
     keyPlace = locationKeys[locationKeys.index(predictResult[1])-1]
 
-    targetPlace = elements[keyPlace]
+    targetLocation = elements[keyPlace]
 
-    home.moveTo(elementThatNeedToMove, targetPlace)
+    home.moveTo(elementToMove, targetLocation)
