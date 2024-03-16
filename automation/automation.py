@@ -41,6 +41,28 @@ def getLocations(first, second, third):
     return locations
     
 
+def isAlreadySorted(transformedLocationList):
+    return sorted(getLocationKeys(transformedLocationList))
+
+def getLocationKeys(transformedLocationList):
+    return list(transformedLocationList.keys())
+
+def predictNewLocations(model, locationKeys):
+    return model.predict([locationKeys], True)
+
+def getKeyOfNewPlace(locationKeys, predictLocations):
+    return locationKeys[locationKeys.index(predictLocations[1])-1]
+
+def getNewLocation(model, transformEntries, getLocationKeys, predictNewLocations, getKeyOfNewPlace, elements, transformedLocationList):
+    locationKeys = getLocationKeys(transformedLocationList)
+
+    predictLocations = predictNewLocations(model, locationKeys)
+
+    elementThatNeedToMove = transformEntries(predictLocations[0], elements)
+    targetPlace = elements[getKeyOfNewPlace(locationKeys, predictLocations)]
+
+    return elementThatNeedToMove, targetPlace
+
 while True:
     first, second, third, elements = getElements()
 
@@ -48,17 +70,9 @@ while True:
 
     transformedLocationList = dict(sorted(locations.items(), key=lambda item: item[1]))
 
-    if list(transformedLocationList.keys()) == sorted(list(transformedLocationList.keys())):
+    if isAlreadySorted(transformedLocationList):
         break
 
-    locationKeys = list(transformedLocationList.keys())
-
-    predictResult = model.predict([locationKeys], True)
-
-    elementThatNeedToMove = transformEntries(predictResult[0], elements)
-
-    keyPlace = locationKeys[locationKeys.index(predictResult[1])-1]
-
-    targetPlace = elements[keyPlace]
+    elementThatNeedToMove, targetPlace = getNewLocation(model, transformEntries, getLocationKeys, predictNewLocations, getKeyOfNewPlace, elements, transformedLocationList)
 
     home.moveTo(elementThatNeedToMove, targetPlace)
