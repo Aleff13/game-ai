@@ -41,6 +41,18 @@ def getLocations(first, second, third):
     return locations
     
 
+def isAlreadySorted(transformedLocationList):
+    return sorted(getLocationKeys(transformedLocationList))
+
+def getLocationKeys(transformedLocationList):
+    return list(transformedLocationList.keys())
+
+def predictNewLocations(model, locationKeys):
+    return model.predict([locationKeys], True)
+
+def getKeyOfNewPlace(locationKeys, predictLocations):
+    return locationKeys[locationKeys.index(predictLocations[1])-1]
+
 while True:
     first, second, third, elements = getElements()
 
